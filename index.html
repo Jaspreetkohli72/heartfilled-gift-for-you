@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="A gentle, low-stimulation digital care package designed for Komal to rest and heal.">
+  <title>A Cozy Space to Rest | For Komal</title>
+  
+  <!-- Google Fonts for warm serif headers and soft body typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Georgia&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <style>
+    /* DESIGN SYSTEM */
+    :root {
+      --bg-canvas: #1A1E1A;       /* Deep warm charcoal green */
+      --bg-card: #232924;         /* Raised warm container */
+      --text-primary: #E3EAE5;    /* Soft cream */
+      --text-accent: #8FA89B;     /* Subdued sage green */
+      --border-color: #3D4A41;    /* Soft border stroke */
+      --font-header: 'Georgia', serif;
+      --font-body: 'Outfit', 'Helvetica Neue', Arial, sans-serif;
+      --transition-speed: 0.35s;
+    }
+
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background-color: var(--bg-canvas);
+      color: var(--text-primary);
+      font-family: var(--font-body);
+      margin: 0;
+      padding: 3rem 1.5rem;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      line-height: 1.6;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* HEADER */
+    header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    h1 {
+      font-family: var(--font-header);
+      font-size: 2.5rem;
+      font-weight: normal;
+      margin: 0 0 0.5rem 0;
+      color: var(--text-primary);
+      letter-spacing: -0.01em;
+    }
+
+    .subtitle {
+      font-size: 0.9rem;
+      color: var(--text-accent);
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      margin: 0;
+      font-weight: 300;
+    }
+
+    /* CARD COMPONENTS */
+    .card {
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 20px;
+      padding: 2.25rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+      transition: border-color var(--transition-speed), transform var(--transition-speed);
+    }
+
+    .card:hover {
+      border-color: rgba(143, 168, 155, 0.35);
+      transform: translateY(-2px);
+    }
+
+    .card-title {
+      font-family: var(--font-header);
+      font-size: 1.4rem;
+      font-weight: normal;
+      margin: 0 0 1.5rem 0;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .card-title svg {
+      color: var(--text-accent);
+      flex-shrink: 0;
+    }
+
+    /* MODULE A: COMPLIMENT GENERATOR */
+    .compliment-box {
+      min-height: 130px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.75rem;
+      padding: 0 0.5rem;
+    }
+
+    blockquote {
+      margin: 0;
+      font-family: var(--font-header);
+      font-size: 1.25rem;
+      font-style: italic;
+      text-align: center;
+      line-height: 1.7;
+      color: var(--text-primary);
+      opacity: 1;
+      transition: opacity 0.25s ease-in-out, transform 0.25s ease-in-out;
+    }
+
+    blockquote.fade-out {
+      opacity: 0;
+      transform: translateY(4px);
+    }
+
+    /* MODULE B: AUDIO PLAYER */
+    .audio-layout {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .track-selector {
+      display: flex;
+      gap: 0.75rem;
+    }
+
+    .track-btn {
+      flex: 1;
+      background-color: transparent;
+      border: 1px solid var(--border-color);
+      color: var(--text-accent);
+      font-family: var(--font-body);
+      font-size: 0.9rem;
+      padding: 0.85rem 1rem;
+      border-radius: 12px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      transition: all var(--transition-speed);
+    }
+
+    .track-btn:hover {
+      border-color: var(--text-accent);
+      color: var(--text-primary);
+    }
+
+    .track-btn.active {
+      background-color: var(--border-color);
+      border-color: var(--text-accent);
+      color: var(--text-primary);
+    }
+
+    .player-main {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+      background-color: rgba(26, 30, 26, 0.4);
+      border: 1px solid rgba(61, 74, 65, 0.4);
+      padding: 1.25rem;
+      border-radius: 14px;
+    }
+
+    .play-trigger {
+      background-color: var(--text-accent);
+      color: var(--bg-canvas);
+      border: none;
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all var(--transition-speed);
+      flex-shrink: 0;
+    }
+
+    .play-trigger:hover {
+      background-color: var(--text-primary);
+      transform: scale(1.06);
+    }
+
+    .play-trigger:active {
+      transform: scale(0.96);
+    }
+
+    .play-trigger svg {
+      width: 20px;
+      height: 20px;
+      fill: currentColor;
+    }
+
+    .player-details {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .status-lbl {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-accent);
+      margin-bottom: 0.15rem;
+    }
+
+    .track-name {
+      font-family: var(--font-header);
+      font-size: 1.05rem;
+      color: var(--text-primary);
+      margin: 0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .volume-panel {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-top: 0.25rem;
+    }
+
+    .volume-panel svg {
+      color: var(--text-accent);
+      flex-shrink: 0;
+    }
+
+    .volume-slider {
+      flex: 1;
+      -webkit-appearance: none;
+      appearance: none;
+      height: 6px;
+      border-radius: 3px;
+      background: var(--border-color);
+      outline: none;
+      cursor: pointer;
+    }
+
+    .volume-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background-color: var(--text-accent);
+      transition: background-color var(--transition-speed), transform 0.15s;
+    }
+
+    .volume-slider::-webkit-slider-thumb:hover {
+      background-color: var(--text-primary);
+      transform: scale(1.2);
+    }
+
+    .volume-val {
+      font-size: 0.8rem;
+      color: var(--text-accent);
+      width: 32px;
+      text-align: right;
+    }
+
+    /* MODULE C: CAROUSEL */
+    .carousel-tabs {
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-bottom: 1.25rem;
+      background-color: rgba(26, 30, 26, 0.4);
+      padding: 0.35rem;
+      border-radius: 20px;
+      border: 1px solid var(--border-color);
+      width: fit-content;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .carousel-tab {
+      background-color: transparent;
+      border: none;
+      color: var(--text-accent);
+      font-family: var(--font-body);
+      font-size: 0.85rem;
+      padding: 0.5rem 1.25rem;
+      border-radius: 16px;
+      cursor: pointer;
+      transition: all var(--transition-speed);
+      outline: none;
+    }
+
+    .carousel-tab:hover {
+      color: var(--text-primary);
+    }
+
+    .carousel-tab.active {
+      background-color: var(--border-color);
+      color: var(--text-primary);
+    }
+
+    .carousel-view {
+      position: relative;
+      border-radius: 14px;
+      overflow: hidden;
+      aspect-ratio: 16/10;
+      background-color: #141714;
+      border: 1px solid var(--border-color);
+      margin-bottom: 1.75rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .carousel-image {
+      width: 100%;
+      height: 100%;
+      object-fit: contain; /* Set to contain to support tall video-call screenshots without cropping faces */
+      opacity: 1;
+      transition: opacity 0.25s ease-in-out, transform 0.25s ease-in-out;
+    }
+
+    .carousel-image.fade-out {
+      opacity: 0;
+      transform: scale(0.98);
+    }
+
+    .carousel-caption-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(to top, rgba(20, 23, 20, 0.95) 0%, rgba(20, 23, 20, 0.5) 70%, transparent 100%);
+      padding: 2rem 1.25rem 1rem 1.25rem;
+    }
+
+    .carousel-caption {
+      margin: 0;
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      color: var(--text-primary);
+      text-align: center;
+      transition: opacity 0.25s ease-in-out;
+    }
+
+    .carousel-caption.fade-out {
+      opacity: 0;
+    }
+
+    /* GENERAL BUTTON STYLING */
+    .cozy-btn {
+      background-color: transparent;
+      border: 1px solid var(--text-accent);
+      color: var(--text-primary);
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      font-weight: 400;
+      padding: 0.85rem 1.75rem;
+      border-radius: 30px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      transition: all var(--transition-speed);
+      outline: none;
+    }
+
+    .cozy-btn:hover {
+      background-color: rgba(143, 168, 155, 0.08);
+      border-color: var(--text-primary);
+    }
+
+    .cozy-btn:active {
+      transform: scale(0.97);
+    }
+
+    .btn-container {
+      display: flex;
+      justify-content: center;
+      width: 100%;
+    }
+
+    /* FOOTER */
+    footer {
+      margin-top: 2rem;
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--text-accent);
+      opacity: 0.65;
+      font-weight: 300;
+      letter-spacing: 0.05em;
+    }
+
+    /* RESPONSIVE LAYOUT */
+    @media (max-width: 600px) {
+      body {
+        padding: 1.5rem 1rem;
+      }
+      header {
+        margin-bottom: 2rem;
+      }
+      h1 {
+        font-size: 2rem;
+      }
+      .card {
+        padding: 1.50rem;
+        margin-bottom: 1.5rem;
+      }
+      .player-main {
+        padding: 1rem;
+        gap: 1rem;
+      }
+      .play-trigger {
+        width: 40px;
+        height: 40px;
+      }
+      .play-trigger svg {
+        width: 16px;
+        height: 16px;
+      }
+      .track-selector {
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <!-- HEADER -->
+    <header>
+      <h1>A Soft Place for Komal</h1>
+      <p class="subtitle">Quiet comfort for your body and mind</p>
+    </header>
+
+    <main>
+      <!-- MODULE A: THE INTERACTIVE COMPLIMENT GENERATOR -->
+      <section class="card" aria-label="Comfort Compliments">
+        <h2 class="card-title">
+          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+          </svg>
+          A Little Warmth
+        </h2>
+        <div class="compliment-box">
+          <blockquote id="compliment-text">
+            Take a deep breath, Komal, and close your eyes. Let your body rest.
+          </blockquote>
+        </div>
+        <div class="btn-container">
+          <button id="compliment-btn" class="cozy-btn">
+            <span>Receive a Little Love</span>
+          </button>
+        </div>
+      </section>
+
+      <!-- MODULE B: LOW-STIMULATION AUDIO PLAYER -->
+      <section class="card" aria-label="Background Sound Controls">
+        <h2 class="card-title">
+          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"></path>
+          </svg>
+          Comforting Sounds
+        </h2>
+        
+        <div class="audio-layout">
+          <!-- Audio tag -->
+          <audio id="cozy-audio" loop></audio>
+
+          <!-- Track Buttons -->
+          <div class="track-selector">
+            <button id="track1-btn" class="track-btn active" data-track="track1">
+              <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"></path>
+              </svg>
+              Ambient Rain
+            </button>
+            <button id="track2-btn" class="track-btn" data-track="track2">
+              <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m0-12.728l.707.707m12.728 12.728l.707-.707M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+              Soft Cozy Music
+            </button>
+          </div>
+
+          <!-- Main Player Console -->
+          <div class="player-main">
+            <button id="play-pause-btn" class="play-trigger" aria-label="Play Track">
+              <!-- Play Icon (Default) -->
+              <svg id="play-icon" viewBox="0 0 24 24">
+                <path d="M8 5v14l11-7z"/>
+              </svg>
+              <!-- Pause Icon (Hidden) -->
+              <svg id="pause-icon" viewBox="0 0 24 24" style="display: none;">
+                <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
+              </svg>
+            </button>
+
+            <div class="player-details">
+              <div id="player-lbl" class="status-lbl">Paused</div>
+              <p id="track-name" class="track-name">Ambient Rain Sounds</p>
+              
+              <!-- Custom Volume Control -->
+              <div class="volume-panel">
+                <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path>
+                </svg>
+                <input type="range" id="volume-slider" class="volume-slider" min="0" max="1" step="0.01" value="0.35" aria-label="Audio Volume">
+                <span id="volume-percentage" class="volume-val">35%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- MODULE C: CAROUSEL WITH TABS (DRAWINGS & MOMENTS) -->
+      <section class="card" aria-label="Visual Distraction & Memories">
+        <h2 class="card-title">
+          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+          </svg>
+          Comfort Stream
+        </h2>
+
+        <!-- TABS SELECTOR -->
+        <div class="carousel-tabs">
+          <button id="tab-drawings" class="carousel-tab active">Cozy Drawings</button>
+          <button id="tab-moments" class="carousel-tab">Our Moments</button>
+        </div>
+        
+        <div class="carousel-view">
+          <img id="carousel-image" class="carousel-image" src="assets/red_panda.png" alt="Whimsical watercolor illustration of a cute sleepy red panda napping on a tree branch">
+          <div class="carousel-caption-overlay">
+            <p id="carousel-caption" class="carousel-caption">A sleepy red panda taking a very deep, quiet nap.</p>
+          </div>
+        </div>
+
+        <div class="btn-container">
+          <button id="carousel-btn" class="cozy-btn">
+            <span>Show Me Something Cute</span>
+          </button>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <p>Take all the time you need, Komal. Your body knows how to heal.</p>
+    </footer>
+  </div>
+
+  <script>
+    // ==========================================
+    // MODULE A: COMPLIMENT GENERATOR
+    // ==========================================
+    const compliments = [
+      "You are incredibly tough, Komal, even when your body is forcing you to slow down and rest.",
+      "Your smile is my absolute favorite thing, Komal, but right now, keeping your jaw completely still is your only job.",
+      "Even wrapped up in blankets feeling miserable, you are the most beautiful person to me, Komal.",
+      "Take a deep breath, Komal. Your skin, your teeth, and your body are just working hard to heal right now.",
+      "I love how fiercely sharp your mind is, Komal—even if today it just needs to daydream and drift away.",
+      "You don't have to look perfect, feel productive, or do anything at all today, Komal. Just be."
+    ];
+    let lastComplimentIndex = -1;
+
+    const complimentText = document.getElementById('compliment-text');
+    const complimentBtn = document.getElementById('compliment-btn');
+
+    function getRandomCompliment() {
+      let index;
+      do {
+        index = Math.floor(Math.random() * compliments.length);
+      } while (index === lastComplimentIndex && compliments.length > 1);
+
+      lastComplimentIndex = index;
+      return compliments[index];
+    }
+
+    function rotateCompliment() {
+      // Gentle slide-down and fade-out
+      complimentText.classList.add('fade-out');
+      
+      setTimeout(() => {
+        complimentText.textContent = getRandomCompliment();
+        complimentText.classList.remove('fade-out');
+      }, 250);
+    }
+
+    complimentBtn.addEventListener('click', rotateCompliment);
+
+
+    // ==========================================
+    // MODULE B: COMFORT AUDIO PLAYER WITH RESILIENT FALLBACKS & AUTOPLAY
+    // ==========================================
+    const tracks = {
+      track1: {
+        name: "Ambient Rain Sounds",
+        urls: [
+          "https://assets.mixkit.co/active_storage/sfx/2433/2433-84.wav", // Spec source (WAV)
+          "https://archive.org/download/relaxingsoundofrain/relaxingsoundofrain.mp3" // Resilient fallback (MP3)
+        ]
+      },
+      track2: {
+        name: "Soft Lo-Fi Cozy Music",
+        urls: [
+          "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" // Spec source (MP3)
+        ]
+      }
+    };
+
+    let currentTrackKey = 'track1';
+    let currentUrlIndex = 0;
+    
+    const audio = document.getElementById('cozy-audio');
+    const playPauseBtn = document.getElementById('play-pause-btn');
+    const playIcon = document.getElementById('play-icon');
+    const pauseIcon = document.getElementById('pause-icon');
+    const trackName = document.getElementById('track-name');
+    const playerLbl = document.getElementById('player-lbl');
+    const volumeSlider = document.getElementById('volume-slider');
+    const volumePercentage = document.getElementById('volume-percentage');
+    const trackBtns = document.querySelectorAll('.track-btn');
+
+    // Init values
+    audio.volume = 0.35;
+    volumeSlider.value = 0.35;
+    volumePercentage.textContent = "35%";
+    
+    // Load initial source
+    loadTrackSource();
+
+    function loadTrackSource() {
+      const urls = tracks[currentTrackKey].urls;
+      audio.src = urls[currentUrlIndex];
+    }
+
+    function togglePlay() {
+      if (audio.paused) {
+        attemptPlay();
+      } else {
+        audio.pause();
+        updateUIPaused();
+      }
+    }
+
+    function attemptPlay() {
+      const playPromise = audio.play();
+      if (playPromise !== undefined) {
+        playPromise.then(updateUIPlaying).catch(err => {
+          console.log("Playback attempt error or blocked:", err);
+          handleAudioError();
+        });
+      }
+    }
+
+    function handleAudioError() {
+      const urls = tracks[currentTrackKey].urls;
+      // If we have fallback URLs left for this track, try the next one
+      if (currentUrlIndex < urls.length - 1) {
+        currentUrlIndex++;
+        console.log(`Audio error: trying fallback URL ${currentUrlIndex} for ${currentTrackKey}...`);
+        loadTrackSource();
+        // If it was playing or attempted to play, keep trying to play
+        attemptPlay();
+      } else {
+        console.log("All audio sources for this track failed to play.");
+        updateUIPaused();
+      }
+    }
+
+    // Audio native error hook
+    audio.addEventListener('error', (e) => {
+      console.log("Native audio error event fired.");
+      handleAudioError();
+    });
+
+    function updateUIPlaying() {
+      playIcon.style.display = 'none';
+      pauseIcon.style.display = 'block';
+      playerLbl.textContent = "Playing";
+    }
+
+    function updateUIPaused() {
+      playIcon.style.display = 'block';
+      pauseIcon.style.display = 'none';
+      playerLbl.textContent = "Paused";
+    }
+
+    function changeTrack(trackKey) {
+      if (trackKey === currentTrackKey) return;
+      
+      const wasPlaying = !audio.paused;
+      currentTrackKey = trackKey;
+      currentUrlIndex = 0; // Reset URL index for new track
+      
+      // Update Buttons Active State
+      trackBtns.forEach(btn => {
+        if (btn.dataset.track === trackKey) {
+          btn.classList.add('active');
+        } else {
+          btn.classList.remove('active');
+        }
+      });
+
+      trackName.textContent = tracks[trackKey].name;
+      loadTrackSource();
+
+      if (wasPlaying) {
+        attemptPlay();
+      } else {
+        updateUIPaused();
+      }
+    }
+
+    // Interactive Autoplay Trigger (resilient fallback for modern browser autoplay blocks)
+    function triggerAutoplay() {
+      const playPromise = audio.play();
+      if (playPromise !== undefined) {
+        playPromise.then(updateUIPlaying).catch(err => {
+          console.log("Standard autoplay blocked. Hooking into first user interaction to start sounds...");
+          
+          // Setup simple listener for the first interaction to start playback
+          const startOnInteraction = () => {
+            audio.play().then(() => {
+              updateUIPlaying();
+              cleanupListeners();
+            }).catch(e => console.log("Failed play on user tap:", e));
+          };
+          
+          const cleanupListeners = () => {
+            document.removeEventListener('click', startOnInteraction);
+            document.removeEventListener('touchstart', startOnInteraction);
+            document.removeEventListener('keydown', startOnInteraction);
+          };
+          
+          document.addEventListener('click', startOnInteraction);
+          document.addEventListener('touchstart', startOnInteraction);
+          document.addEventListener('keydown', startOnInteraction);
+        });
+      }
+    }
+
+    // Event listeners for Audio
+    playPauseBtn.addEventListener('click', togglePlay);
+    
+    trackBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        changeTrack(btn.dataset.track);
+      });
+    });
+
+    volumeSlider.addEventListener('input', (e) => {
+      const vol = parseFloat(e.target.value);
+      audio.volume = vol;
+      volumePercentage.textContent = Math.round(vol * 100) + "%";
+    });
+
+
+    // ==========================================
+    // MODULE C: VISUAL DISTRACTION CAROUSEL (TABS SUPPORT)
+    // ==========================================
+    const drawingImages = [
+      {
+        url: "assets/red_panda.png",
+        alt: "Whimsical watercolor illustration of a cute sleepy red panda napping on a tree branch",
+        caption: "A sleepy red panda taking a very deep, quiet nap."
+      },
+      {
+        url: "assets/puppy.png",
+        alt: "Whimsical drawing of a cute golden retriever puppy resting its head on a soft cream pillow",
+        caption: "A gentle puppy sending you a soft, supportive look."
+      },
+      {
+        url: "assets/kitten.png",
+        alt: "Whimsical drawing of a cute baby kitten asleep, curled up inside a warm, soft wool knitted basket",
+        caption: "A cozy kitten asleep in absolute warmth and comfort."
+      }
+    ];
+
+    const momentImages = [
+      {
+        url: "assets/moment_1.png",
+        alt: "Komal smiling softly on a video call, resting her face in her hands",
+        caption: "Komal resting her face and smiling softly while we talk."
+      },
+      {
+        url: "assets/moment_2.png",
+        alt: "Komal showing off her painted nails on a video call wearing a white Van Gogh shirt",
+        caption: "Showing off your nails and painting them during our cozy call."
+      },
+      {
+        url: "assets/moment_3.png",
+        alt: "Komal laughing brightly on a video call",
+        caption: "Your beautiful laugh that makes my whole day."
+      }
+    ];
+
+    let currentMode = 'drawings'; // 'drawings' or 'moments'
+    let currentImageIndex = 0;
+
+    const carouselImg = document.getElementById('carousel-image');
+    const carouselCaption = document.getElementById('carousel-caption');
+    const carouselBtn = document.getElementById('carousel-btn');
+    const btnText = carouselBtn.querySelector('span');
+    const tabDrawings = document.getElementById('tab-drawings');
+    const tabMoments = document.getElementById('tab-moments');
+
+    function getCurrentImageList() {
+      return currentMode === 'drawings' ? drawingImages : momentImages;
+    }
+
+    function updateCarouselContent(instant = false) {
+      const list = getCurrentImageList();
+      const item = list[currentImageIndex];
+      
+      if (instant) {
+        carouselImg.src = item.url;
+        carouselImg.alt = item.alt;
+        carouselCaption.textContent = item.caption;
+      } else {
+        carouselImg.classList.add('fade-out');
+        carouselCaption.classList.add('fade-out');
+
+        setTimeout(() => {
+          carouselImg.src = item.url;
+          carouselImg.alt = item.alt;
+          carouselCaption.textContent = item.caption;
+          
+          carouselImg.onload = () => {
+            carouselImg.classList.remove('fade-out');
+            carouselCaption.classList.remove('fade-out');
+          };
+        }, 250);
+      }
+    }
+
+    function setMode(mode) {
+      if (mode === currentMode) return;
+      currentMode = mode;
+      currentImageIndex = 0;
+
+      if (mode === 'drawings') {
+        tabDrawings.classList.add('active');
+        tabMoments.classList.remove('active');
+        btnText.textContent = "Show Me Something Cute";
+      } else {
+        tabDrawings.classList.remove('active');
+        tabMoments.classList.add('active');
+        btnText.textContent = "Show Me Another Memory";
+      }
+
+      updateCarouselContent(false);
+    }
+
+    tabDrawings.addEventListener('click', () => setMode('drawings'));
+    tabMoments.addEventListener('click', () => setMode('moments'));
+
+    function cycleImage() {
+      const list = getCurrentImageList();
+      currentImageIndex = (currentImageIndex + 1) % list.length;
+      updateCarouselContent(false);
+    }
+
+    carouselBtn.addEventListener('click', cycleImage);
+
+    // Initial page load functions
+    window.addEventListener('DOMContentLoaded', () => {
+      complimentText.textContent = getRandomCompliment();
+      triggerAutoplay();
+    });
+  </script>
+
+</body>
+</html>
